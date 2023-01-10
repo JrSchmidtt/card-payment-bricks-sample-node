@@ -2,6 +2,8 @@ const open = require("open");
 const path = require("path");
 const express = require("express");
 const mercadopago = require("mercadopago");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const mercadoPagoPublicKey = process.env.MERCADO_PAGO_SAMPLE_PUBLIC_KEY;
 if (!mercadoPagoPublicKey) {
