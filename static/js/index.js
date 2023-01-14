@@ -41,14 +41,31 @@ async function loadPaymentForm() {
 };
 
 const proccessPayment = (cardFormData) => {
-    fetch("/process_payment", {
+    fetch("http://localhost:4000/api/payment", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(cardFormData),
+        body: JSON.stringify({
+            quote_id: "63c1f5fb1dbdec3b74b952f9",
+            payment_processor_id: "mercadoPago",
+            mercadoPago: {
+                token: cardFormData.token,
+                issuer_id: cardFormData.issuer_id,
+                payment_method_id: cardFormData.payment_method_id,
+                installments: cardFormData.installments,
+                payer: {
+                    email: cardFormData.payer.email,
+                    identification: {
+                        type: cardFormData.payer.identification.type,
+                        number: cardFormData.payer.identification.number
+                    },
+                }
+            }
+        }),
     })
     .then(response => {
+        console.log(response);
         return response.json();
     })
     .then(result => {

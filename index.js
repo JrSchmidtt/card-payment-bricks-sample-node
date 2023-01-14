@@ -39,7 +39,6 @@ app.post("/process_payment", (req, res) => {
   mercadopago.payment.save(body)
     .then(function(response) {
       const { response: data } = response;
-
       res.status(201).json({
         detail: data.status_detail,
         status: data.status,
